@@ -1,0 +1,14 @@
+language: java
+before_deploy:
+- mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+- export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep
+  -v '\[')
+deploy:
+  provider: releases
+  api_key:
+    secure: nmObwBrwJkmaCOo+vdQFEtGtdTVpjmF5zddujaR6wJDSvlQ3CKVXEURCjqWg3tYfYnw/bhTjhXLRNlULNhdJ6EA+1cdVVUaUxcjMQlaAfD1CJ8kK8q9iwBUjXVeK0nAFBmtzHyFSzIbnf7SUCF4gIkdX9a5/VUj8FE8DEaFWDniBs3cOuP5c+LHJpn9KKd/dTd96LcnqBALkJd3mGN2quSbk22n7DA42G1VQ77TT6KOaQpJARNfdzUMtrBMESOUNQmPTJTn+FvTQh/gzCVDSqktXQeER1u1xztfgzno1ZSOeCdDJo+pe6kmuQojYAoRDMRhgPfRSJeQ086S4hn/Rei0qefNGNMPyadokHjAJvIjJq/Rzbd7XH0RxBeATdItYUwFcmvTarLtwvWpOwGEf9jQYXx2RaiiGJbYSbGLq+tlfAzthzXNIbRli95RW9jn7xU2L1+0jdTIAzGLv11GQmk/IGcngu199eQPoid2yrFG8LIOV/7PPFutt/pKid2zW5oQrYyPkDgNigRAPoSg1ruvYAs6gzy+e3vEB47ImyGQtrXdKO1BFoq6i94opu8Y6dHWNd/CsWQuvbdCJ5a9vtLTa7rR9iytSo+/YzlwJ57Y36m9XcvHI8Y6fUMgMb3oa6dY6WadpcMZi9KJzODKOtx5x8Tavv1CaD+zdKRZx+XA=
+  file: "target/quickxorhash-$project_version.jar"
+  skip_cleanup: true
+  on:
+    repo: sndr-oss/quickxorhash-java
+  name: $project_version
